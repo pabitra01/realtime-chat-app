@@ -1,12 +1,13 @@
 "use client";
 import { IUser } from "@/src/interface/user";
+import { removeLocalStorageItem } from "@/src/util/localStorage";
 import Link from "next/link";
 import React from "react";
 
 const Navbar = ({ user }: NavbarProps) => {
   console.log(user);
   const onLogOut = () => {
-    localStorage.removeItem("loggedInUser");
+    removeLocalStorageItem("loggedInUser");
     window.location.reload();
   };
 

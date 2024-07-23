@@ -1,5 +1,9 @@
 "use client";
 import { IUser } from "@/src/interface/user";
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "@/src/util/localStorage";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -11,15 +15,15 @@ const SignUpContent = () => {
 
   const handleSignup = (e: any) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users") || "[]") as IUser[];
+    const users = JSON.parse(getLocalStorageItem("users") || "[]") as IUser[];
     const userExists = users.find((user) => user.email === email);
 
     if (userExists) {
       alert("User already exists!");
     } else {
       users.push({ username, password, email });
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem(
+      setLocalStorageItem("users", JSON.stringify(users));
+      setLocalStorageItem(
         "loggedInUser",
         JSON.stringify({ username, password, email, chatHistory: [] })
       );

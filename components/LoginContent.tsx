@@ -1,5 +1,9 @@
 "use client";
 import { IUser } from "@/src/interface/user";
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "@/src/util/localStorage";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -9,14 +13,14 @@ const LoginContent = () => {
   const router = useRouter();
   const handleLogin = (e: any) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users") || "[]") as IUser[];
+    const users = JSON.parse(getLocalStorageItem("users") || "[]") as IUser[];
     const user = users.find(
       (user) => user.email === email && user.password === password
     );
 
     if (user) {
       console.log(user);
-      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      setLocalStorageItem("loggedInUser", JSON.stringify(user));
       router.push("/");
     } else {
       alert("Invalid credentials!");

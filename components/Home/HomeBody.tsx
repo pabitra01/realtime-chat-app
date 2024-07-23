@@ -2,6 +2,10 @@
 import { IChat, IUser } from "@/src/interface/user";
 import { useState, useEffect, useRef } from "react";
 import { SendSvg, ServerSvg, UserSvg } from "../common/svgs/SvgPack";
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "@/src/util/localStorage";
 
 const HomeBody = ({ user }: HomeBodyProps) => {
   const [messages, setMessages] = useState<Array<IChat>>(
@@ -30,13 +34,13 @@ const HomeBody = ({ user }: HomeBodyProps) => {
   const updateUser = () => {
     const currentUser = { ...user };
     currentUser.chatHistory = [...(user?.chatHistory || []), ...messages];
-    const users = JSON.parse(localStorage.getItem("users") || "[]") as IUser[];
+    const users = JSON.parse(getLocalStorageItem("users") || "[]") as IUser[];
     const currentUserIndex = users.findIndex(
       (item) => item.email === user.email
     );
     users[currentUserIndex] = currentUser;
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("loggedInUser", JSON.stringify(currentUser));
+    setLocalStorageItem("users", JSON.stringify(users));
+    setLocalStorageItem("loggedInUser", JSON.stringify(currentUser));
   };
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:1337");

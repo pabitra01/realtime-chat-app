@@ -2,9 +2,10 @@
 import React from "react";
 import Navbar from "../common/Navbar";
 import HomeBody from "./HomeBody";
+import { getLocalStorageItem } from "@/src/util/localStorage";
 
 const HomeContent = () => {
-  const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
+  const user = JSON.parse(getLocalStorageItem("loggedInUser") || "{}");
   console.log(user);
 
   return (
