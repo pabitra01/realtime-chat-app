@@ -1,3 +1,4 @@
+"use client";
 import { IUser } from "@/src/interface/user";
 import Link from "next/link";
 import React from "react";
